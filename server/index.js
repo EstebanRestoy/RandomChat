@@ -6,12 +6,14 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const router = require("./router");
+const { callbackify } = require("util");
 const server = http.createServer(app);
 const io = socketio(server);
 
 io.on("connection", (socket) => {
   console.log("New user is here !");
 
+  socket.on("join", ({ tag, room }, callback) => {});
   socket.on("disconnect", () => {
     console.log("An user has left !");
   });

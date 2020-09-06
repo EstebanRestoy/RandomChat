@@ -14,7 +14,11 @@ const Room = ({ location }) => {
     setTag(tag);
     setRoom(room);
 
-    socket.emit("join", { tag, room });
+    socket.emit("join", { tag, room }, () => {});
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
   }, [ENDPOINT, location.search]);
   return <h1> Room : XX </h1>;
 };
